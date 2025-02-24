@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criminology Quiz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>Criminology Quiz</h1>
+        <div id="question-container">
+            <p id="question">Loading question...</p>
+            <input type="text" id="answer" placeholder="Type your answer here">
+            <button onclick="checkAnswer()">Submit</button>
+        </div>
+        <p id="feedback"></p>
+        <p id="score">Score: 0</p>
+        <button id="next" onclick="nextQuestion()" style="display:none;">Next</button>
+    </div>
+    <script src="script.js"></script>
+  
+    <script>
+        const questions = [
+            { question: "What term describes the consistency of responses when a youth is asked the same question multiple times and provides the same answer?", answer: "Reliability" },
+            { question: "What term refers to the accuracy of a research instrument in measuring what it is intended to measure?", answer: "Validity" },
+            { question: "What term represents the percentage of a juvenile population that engages in a particular behavior, such as delinquency?", answer: "Prevalence of delinquency" },
+            { question: "What term describes how often a specific delinquent behavior occurs within a population?", answer: "Incidence of delinquency" },
+            { question: "What theoretical perspective views crime and individuals as rational beings, where crime is the result of rational choices?", answer: "Classical school of Criminology" },
+            { question: "What is the agreement between people and the government concerning their rights and regulations called?", answer: "Social Contract" },
+            { question: "According to this perspective/philosophy, the aim of punishment is to benefit society. The goal of social and political systems should be to achieve the greatest good for the greatest number of people. What is this perspective?", answer: "Utilitarianism" },
+            { question: "What perspective holds that criminality is the result of conscious choice, suggesting that individuals who commit crimes choose to do so?", answer: "Rational Choice Theory" },
+            { question: "What is the belief that a person's biological characteristics make them prone to certain types of behavior when the surrounding environment encourages it?", answer: "Biosocial Criminology" },
+            { question: "According to developmental studies, what term describes individuals who start committing crimes early in life and continue to engage in criminal behavior well into adulthood?", answer: "Life Course Persistent Offenders" },
+            { question: "What is desistance?", answer: "Desistance refers to the process by which individuals stop engaging in criminal behavior and cease offending over time." },
+            { question: "Which theory suggests that when social control breaks down due to disorder within a community, crime and delinquency increase?", answer: "Social Disorganization Theory" },
+            { question: "What term describes a state of normlessness in society, where social rules and values break down?", answer: "Anomie" },
+            { question: "Which theory argues that high-crime areas maintain their crime rates over time because delinquent values become cultural norms and are passed down through generations?", answer: "Cultural Transmission Theory" },
+            { question: "Which theory explains how delinquent behavior develops as a result of alternative norms that differ from mainstream societal values?", answer: "Cultural Deviancy Theory" },
+            { question: "Which theory states that societal pressures, such as the inability to achieve success through legitimate means, push individuals toward delinquency?", answer: "Strain Theory" },
+            { question: "Which theory suggests that individuals may turn to crime due to a lack of legitimate opportunities to achieve their goals?", answer: "Opportunity Theory" },
+            { question: "What theory proposes that delinquency is learned, and that individuals who are exposed to environments that favor criminal behavior are more likely to engage in it?", answer: "Differential Association Theory" },
+            { question: "Which theory states that delinquent acts occur when a juvenile’s bond to society is weakened or broken?", answer: "Social Control Theory" },
+            { question: "Which theory claims that a lack of self-control is the primary factor behind criminal and delinquent behavior?", answer: "Self-Control Theory" },
+            { question: "In Strain Theory, what motivates individuals to take certain actions despite societal pressures?", answer: "Goals" }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        function loadQuestion() {
+            document.getElementById("question").innerText = questions[currentQuestionIndex].question;
+            document.getElementById("answer").value = "";
+            document.getElementById("feedback").innerText = "";
+            document.getElementById("next").style.display = "none";
+        }
+
+        function checkAnswer() {
+            let userAnswer = document.getElementById("answer").value.trim();
+            let correctAnswer = questions[currentQuestionIndex].answer;
+            if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+                document.getElementById("feedback").innerText = "Correct!";
+                score++;
+            } else {
+                document.getElementById("feedback").innerText = "Incorrect. The correct answer is: " + correctAnswer;
+            }
+            document.getElementById("score").innerText = "Score: " + score;
+            document.getElementById("next").style.display = "inline-block";
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                loadQuestion();
+            } else {
+                document.getElementById("question-container").innerHTML = "Quiz complete! Your score: " + score + " out of " + questions.length;
+                document.getElementById("next").style.display = "none";
+            }
+        }
+
+        window.onload = loadQuestion;
+    </script>
+</body>
+</html>
