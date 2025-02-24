@@ -1,0 +1,121 @@
+03_QDRING.cpp
+@@ -0,0 +1,119 @@
+#include <iostream>
+#include <string>
+#include <unordered_map>
+#include <vector>
+#include <algorithm>
+#include <ctime>
+
+// Function to run the cocktail ingredients quiz
+void runQuiz(const std::unordered_map<std::string, std::string>& cocktails) {
+    // Convert the map to a vector to allow shuffling
+    std::vector<std::pair<std::string, std::string>> questions(cocktails.begin(), cocktails.end());
+    std::srand(std::time(0)); // Seed the random number generator
+
+    int score = 0;
+    int total = questions.size();
+
+    // Shuffle the questions to randomize the order
+    std::random_shuffle(questions.begin(), questions.end());
+
+    // Quiz loop
+    for (const auto& [name, ingredients] : questions) {
+        std::cout << "What are the ingredients for [" << name << "]? \n";
+        std::string answer;
+        std::getline(std::cin, answer);
+
+        if (answer == ingredients) {
+            std::cout << "Correct!\n\n";
+            score++;
+        } else {
+            std::cout << "Incorrect. The correct ingredients are: " << ingredients << "\n\n";
+        }
+    }
+
+    // Display final score
+    std::cout << "\nQuiz Complete! Your score: " << score << " out of " << total << ". Are you ready for tomorrow?... \n";
+}
+
+int main() {
+    // Cocktail names and ingredients
+    std::unordered_map<std::string, std::string> cocktails = {
+        {"Lavender Haze", "Gin / elderflower / violette / grapefruit"},
+        {"Gold Rush", "Bourbon / lemon / honey"},
+        {"Devil's Apple", "Apple brandy / pimms / agave / bitters"},
+        {"Cranberry Bourbon Punch", "Bourbon / vermouth / cranberry / rosemary"},
+        {"Under-Currant", "Cassis / aperol / pineapple / sparkling / soda"},
+        {"Coffee Negroni", "Gin / coffee sweet vermouth / campari"},
+        {"Fuzzy Buffalo", "Bourbon / basil / peach / lemon"},
+        {"Tequi(LL)a Mockingbird #2", "Reposado tequila / limoncello / lemon"},
+        {"Sidecar", "Brandy / lemon / orange liqueur"},
+        {"L&L Vodka Collins", "Lavender / lemongrass / agave / lemon"},
+        {"Corpse Reviver #2", "Gin / cointreau / lillet blanc / lemon"},
+        {"French 75", "Brandy or gin / lemon / sparkling wine"},
+        {"Crescent City Cooler", "Rum / lime / guava / ginger ale"}
+    };
+
+    char takeAgain;
+    do {
+        runQuiz(cocktails);
+
+        // Ask if the user wants to take the quiz again
+        std::cout << "\nWould you like to take the quiz again? (Y/N): ";
+        std::cin >> takeAgain;
+        std::cin.ignore(); // Ignore newline character left in input buffer
+        std::cout << "\n";
+    } while (takeAgain == 'Y' || takeAgain == 'y');
+
+    std::cout << "Thank you for taking the quiz!\n";
+    return 0;
+}
+
+/*
+#include <iostream>
+#include <string>
+#include <unordered_map>
+#include <cstdlib>
+#include <ctime>
+
+int main() {
+    // Cocktail names and ingredients
+    std::unordered_map<std::string, std::string> cocktails = {
+        {"Lavender Haze", "Gin / elderflower / violette / grapefruit"},
+        {"Gold Rush", "Bourbon / lemon / honey"},
+        {"Devil's Apple", "Apple brandy / pimms / agave / bitters"},
+        {"Cranberry Bourbon Punch", "Bourbon / vermouth / cranberry / rosemary"},
+        {"Under-Currant", "Cassis / aperol / pineapple / sparkling / soda"},
+        {"Coffee Negroni", "Gin / coffee sweet vermouth / campari"},
+        {"Fuzzy Buffalo", "Bourbon / basil / peach / lemon"},
+        {"Tequi(LL)a Mockingbird #2", "Reposado tequila / limoncello / lemon"},
+        {"Sidecar", "Brandy / lemon / orange liqueur"},
+        {"L&L Vodka Collins", "Lavender / lemongrass / agave / lemon"},
+        {"Corpse Reviver #2", "Gin / cointreau / lillet blanc / lemon"},
+        {"French 75", "Brandy or gin / lemon / sparkling wine"},
+        {"Crescent City Cooler", "Rum / lime / guava / ginger ale"}
+    };
+
+    std::srand(std::time(0)); // Seed random number generator
+    int score = 0;
+    int total = cocktails.size();
+
+    // Quiz loop
+    for (const auto& [name, ingredients] : cocktails) {
+        std::cout << "What are the ingredients for [ " << name << " ]? \n";
+        std::string answer;
+        std::getline(std::cin, answer);
+
+        if (answer == ingredients) {
+            std::cout << "Correct!\n";
+            score++;
+        } else {
+            std::cout << "Incorrect. The correct ingredients are: " << ingredients << "\n \n";
+        }
+    }
+
+    // Display final score
+    std::cout << "\nQuiz Complete! Your score: " << score << " out of " << total << " are you ready for tomorrow?... \n";
+    return 0;
+}
+
+*/
